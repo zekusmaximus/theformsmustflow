@@ -42,7 +42,20 @@ const nextConfig = {
   
   // Redirects (if needed)
   async redirects() {
-    return [];
+    return [
+      // Redirect non-www to www for canonical consistency
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'theformsmustflow.online',
+          },
+        ],
+        destination: 'https://www.theformsmustflow.online/:path*',
+        permanent: true,
+      },
+    ];
   },
   
   // Rewrites (if needed)

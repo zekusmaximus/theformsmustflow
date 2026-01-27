@@ -83,21 +83,43 @@ export function generateBookSchema() {
       '@type': 'Person',
       name: siteConfig.authorName,
     },
-    url: siteConfig.amazonUrl,
+    url: siteConfig.siteUrl,
+    sameAs: [siteConfig.amazonUrl],
     // Note: ISBN intentionally omitted per requirements
     // ISBN: '978-XXXXXXXXXX',
     // numberOfPages: 0, // Intentionally omitted per requirements
     // publisher: '', // Intentionally omitted per requirements
     inLanguage: 'en',
-    offers: {
-      '@type': 'Offer',
-      url: siteConfig.amazonUrl,
-      availability: 'https://schema.org/InStock',
-      seller: {
-        '@type': 'Organization',
-        name: 'Amazon',
+    workExample: [
+      {
+        '@type': 'Book',
+        name: `${siteConfig.bookTitle} - Kindle Edition`,
+        bookFormat: 'https://schema.org/EBook',
+        offers: {
+          '@type': 'Offer',
+          url: siteConfig.amazonUrl,
+          availability: 'https://schema.org/InStock',
+          seller: {
+            '@type': 'Organization',
+            name: 'Amazon',
+          },
+        },
       },
-    },
+      {
+        '@type': 'Book',
+        name: `${siteConfig.bookTitle} - Paperback`,
+        bookFormat: 'https://schema.org/Paperback',
+        offers: {
+          '@type': 'Offer',
+          url: siteConfig.amazonUrl,
+          availability: 'https://schema.org/InStock',
+          seller: {
+            '@type': 'Organization',
+            name: 'Amazon',
+          },
+        },
+      },
+    ],
     // AggregateRating placeholder - add real data when available
     // aggregateRating: {
     //   '@type': 'AggregateRating',

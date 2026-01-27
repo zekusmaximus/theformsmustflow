@@ -9,7 +9,7 @@ export const siteConfig = {
   amazonUrl: "https://a.co/d/h9ehTip",
   
   // Site Metadata
-  siteUrl: "https://theformsmustflow.com", // Update after deployment
+  siteUrl: "https://www.theformsmustflow.online",
   siteName: "The Forms Must Flow",
   
   // Theme Colors - Extracted from cover art
@@ -110,7 +110,7 @@ export const siteConfig = {
   images: {
     cover: '/images/cover.jpg',
     coverAlt: 'The Forms Must Flow book cover - an alien bureaucrat faces a government stamp',
-    ogImage: '/images/og-image.jpg', // 1200x630 recommended
+    ogImage: '/images/og.jpg', // 1200x630 recommended
   },
   
   // Content Settings
