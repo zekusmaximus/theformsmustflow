@@ -79,6 +79,9 @@ export function Testimonials({ className = '' }: { className?: string }) {
             <h2 id="testimonials-heading" className="text-2xl md:text-3xl font-extrabold text-primary-900">
               Field notes from the bureaucracy front lines
             </h2>
+            <p className="text-xs text-primary-400 mt-1 italic">
+              All quotes are from fictional personnel records. Any resemblance to real process engineers is… regrettable
+            </p>
           </div>
         </div>
 

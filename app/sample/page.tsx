@@ -42,7 +42,7 @@ export default function SamplePage() {
               {siteConfig.bookTitle}
             </Link>
             <AmazonCTA size="sm" trackLocation="sample-header">
-              Buy Now
+              Buy on Amazon
             </AmazonCTA>
           </nav>
         </div>
@@ -86,7 +86,7 @@ export default function SamplePage() {
               Want to read the full story?
             </p>
             <AmazonCTA size="lg" trackLocation="sample-footer">
-              Get the Book on Amazon
+              Buy on Amazon
             </AmazonCTA>
           </div>
         </div>

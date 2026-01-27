@@ -47,7 +47,7 @@ export function FinalCTA({ className = '' }: FinalCTAProps) {
             trackLocation="final-cta"
             className="bg-accent-500 hover:bg-accent-400"
           >
-            Get Your Copy
+            Buy on Amazon
           </AmazonCTA>
           
           <SampleCTA 
