@@ -116,7 +116,7 @@ export function CTAButton({
 
 /**
  * Amazon CTA Button (pre-configured)
- * 
+ *
  * Usage:
  * <AmazonCTA size="lg" trackLocation="hero">
  *   Buy on Amazon
@@ -138,28 +138,24 @@ export function AmazonCTA({
   onClick,
 }: AmazonCTAProps) {
   return (
-    <div className="flex flex-col items-center gap-2">
-      <CTAButton
-        variant="primary"
-        size={size}
-        href={siteConfig.amazonUrl}
-        trackLocation={trackLocation}
-        className={className}
-        onClick={onClick}
-        ariaLabel="Buy The Forms Must Flow on Amazon (opens in new tab)"
-      >
-        {children}
-      </CTAButton>
-      <p className="text-xs text-primary-400 text-center">
-        Opens Amazon • Kindle Unlimited + paperback • Takes 10 seconds
-      </p>
-    </div>
+    <CTAButton
+      variant="primary"
+      size={size}
+      href={siteConfig.amazonUrl}
+      trackLocation={trackLocation}
+      className={`flex-col gap-0.5 ${className}`}
+      onClick={onClick}
+      ariaLabel="Buy The Forms Must Flow on Amazon (opens in new tab, Kindle Unlimited + paperback, takes 10 seconds)"
+    >
+      <span>{children}</span>
+      <span className="text-xs font-normal opacity-90">Opens Kindle + paperback • Takes 10 seconds</span>
+    </CTAButton>
   );
 }
 
 /**
  * Sample CTA Button (pre-configured)
- * 
+ *
  * Usage:
  * <SampleCTA trackLocation="hero" />
  */
