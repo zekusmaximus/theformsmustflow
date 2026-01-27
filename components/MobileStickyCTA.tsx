@@ -32,12 +32,13 @@ export function MobileStickyCTA({ className = '' }: MobileStickyCTAProps) {
   // Only show if scroll pulse feature is enabled
   if (!siteConfig.features.scrollPulse) {
     return (
-      <div 
-        className={`fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-primary-200 p-4 md:hidden ${className}`}
+      <div
+        className={`fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-primary-200 p-3 md:hidden safe-area-bottom ${className}`}
         data-section="mobile-cta"
+        style={{ maxHeight: '12vh' }}
       >
-        <AmazonCTA 
-          size="md" 
+        <AmazonCTA
+          size="sm"
           trackLocation="mobile-sticky"
           className="w-full"
         >
@@ -48,12 +49,13 @@ export function MobileStickyCTA({ className = '' }: MobileStickyCTAProps) {
   }
 
   return (
-    <div 
-      className={`fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-primary-200 p-4 md:hidden ${className}`}
+    <div
+      className={`fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-primary-200 p-3 md:hidden safe-area-bottom ${className}`}
       data-section="mobile-cta"
+      style={{ maxHeight: '12vh' }}
     >
-      <AmazonCTA 
-        size="md" 
+      <AmazonCTA
+        size="sm"
         trackLocation="mobile-sticky"
         className={`w-full transition-all duration-300 ${shouldPulse ? 'animate-pulse ring-4 ring-accent-400 ring-opacity-50' : ''}`}
         onClick={stopPulse}

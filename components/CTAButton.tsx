@@ -138,17 +138,22 @@ export function AmazonCTA({
   onClick,
 }: AmazonCTAProps) {
   return (
-    <CTAButton
-      variant="primary"
-      size={size}
-      href={siteConfig.amazonUrl}
-      trackLocation={trackLocation}
-      className={className}
-      onClick={onClick}
-      ariaLabel="Buy The Forms Must Flow on Amazon (opens in new tab)"
-    >
-      {children}
-    </CTAButton>
+    <div className="flex flex-col items-center gap-2">
+      <CTAButton
+        variant="primary"
+        size={size}
+        href={siteConfig.amazonUrl}
+        trackLocation={trackLocation}
+        className={className}
+        onClick={onClick}
+        ariaLabel="Buy The Forms Must Flow on Amazon (opens in new tab)"
+      >
+        {children}
+      </CTAButton>
+      <p className="text-xs text-primary-400 text-center">
+        Opens Amazon • Kindle Unlimited + paperback • Takes 10 seconds
+      </p>
+    </div>
   );
 }
 
