@@ -20,6 +20,7 @@ import {
 } from '@/components';
 import { useExitIntent } from '@/hooks';
 import { siteConfig } from '@/site.config';
+import PermitDeskGame from "@/components/PermitDeskGame";
 
 /**
  * Landing Page
@@ -57,6 +58,25 @@ export default function LandingPage() {
 
       {/* Value propositions */}
       <ValueProps />
+
+      {/* Mini-game: The Permit Desk */}
+      <section id="permit-desk" className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <p className="inline-block px-4 py-1.5 bg-accent-100 text-accent-700 text-sm font-medium rounded-full mb-4">
+              Mini-Game
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary-900">
+              The Permit Desk
+            </h2>
+            <p className="mt-3 text-primary-600 max-w-2xl mx-auto">
+              Stop a hive-mind invasion the only way that works: paperwork.
+            </p>
+          </div>
+
+          <PermitDeskGame />
+        </div>
+      </section>
 
       {/* Teaser content */}
       <Teaser />
