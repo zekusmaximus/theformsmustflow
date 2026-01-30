@@ -276,25 +276,25 @@ export default function PermitDeskGame() {
   const returnHint = dragX < 0 ? Math.min(Math.abs(dragX) / 160, 1) : 0;
 
   return (
-    <div className="rounded-2xl border border-primary-200 bg-white shadow-lg p-4 md:p-5">
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+    <div className="rounded-2xl border border-primary-200 bg-white shadow-lg p-3 sm:p-4 md:p-5">
+      <div className="flex flex-col gap-2 sm:gap-3">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 sm:gap-3">
           <div>
             <p className="text-xs font-semibold text-primary-500 uppercase tracking-wider">Permit Desk</p>
-            <h3 className="text-lg font-bold text-primary-900">Swipe-to-Approve</h3>
-            <p className="mt-1 text-xs text-primary-500">
+            <h3 className="text-base sm:text-lg font-bold text-primary-900">Swipe-to-Approve</h3>
+            <p className="mt-1 text-[11px] text-primary-500">
               Mobile: swipe card - Desktop: Left/Right or A/D
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <div className="rounded-lg bg-primary-50 px-3 py-2">
-              <p className="text-xs text-primary-500">Time</p>
-              <p className="text-lg font-bold text-primary-900 tabular-nums">{secondsLeft}s</p>
+            <div className="rounded-lg bg-primary-50 px-2.5 py-1.5">
+              <p className="text-[11px] text-primary-500">Time</p>
+              <p className="text-base font-bold text-primary-900 tabular-nums">{secondsLeft}s</p>
             </div>
             {!running ? (
               <button
                 onClick={resetGame}
-                className="px-4 py-2 rounded-lg bg-accent-600 hover:bg-accent-700 text-white font-semibold transition-colors"
+                className="px-3 py-1.5 rounded-lg bg-accent-600 hover:bg-accent-700 text-white text-sm font-semibold transition-colors"
               >
                 Start a Shift
               </button>
@@ -304,7 +304,7 @@ export default function PermitDeskGame() {
                   setRunning(false);
                   setBanner("Shift paused.");
                 }}
-                className="px-4 py-2 rounded-lg border-2 border-primary-300 text-primary-800 font-semibold hover:bg-primary-50 transition-colors"
+                className="px-3 py-1.5 rounded-lg border-2 border-primary-300 text-primary-800 text-sm font-semibold hover:bg-primary-50 transition-colors"
               >
                 Pause
               </button>
@@ -312,21 +312,21 @@ export default function PermitDeskGame() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-center gap-3">
-          <div className="flex items-center gap-2 rounded-lg bg-primary-50 px-3 py-2">
-            <div className="text-[11px] text-primary-500">
+        <div className="flex flex-col md:flex-row md:items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 rounded-lg bg-primary-50 px-2.5 py-2">
+            <div className="text-[10px] text-primary-500">
               <div>Score</div>
               <div>Combo</div>
               <div>High</div>
             </div>
-            <div className="text-sm font-bold text-primary-900 tabular-nums">
+            <div className="text-xs font-bold text-primary-900 tabular-nums">
               <div>{score}</div>
               <div>{combo}</div>
               <div>{highScore}</div>
             </div>
           </div>
           <div className="flex-1">
-            <div className="flex items-center justify-between text-[11px] text-primary-500 mb-1">
+            <div className="flex items-center justify-between text-[10px] text-primary-500 mb-1">
               <span>Invasion</span>
               <span className="tabular-nums">{invasion}%</span>
             </div>
@@ -340,16 +340,19 @@ export default function PermitDeskGame() {
           </div>
         </div>
 
-        <div className="rounded-lg bg-secondary-50 border border-secondary-200 px-4 text-sm text-secondary-900 h-10 flex items-center overflow-hidden" aria-live="polite">
+        <div
+          className="rounded-lg bg-secondary-50 border border-secondary-200 px-3 text-xs text-secondary-900 h-8 flex items-center overflow-hidden"
+          aria-live="polite"
+        >
           <span className={`transition-opacity truncate ${banner ? "opacity-100" : "opacity-0"}`}>
             {banner || " "}
           </span>
         </div>
 
-        <div className="flex items-center justify-between text-xs text-primary-500">
+        <div className="flex items-center justify-between text-[11px] text-primary-500">
           <span className="inline-flex items-center gap-2">
             <span
-              className="inline-flex items-center justify-center w-7 h-7 rounded-full border border-primary-200 bg-white"
+              className="inline-flex items-center justify-center w-6 h-6 rounded-full border border-primary-200 bg-white"
               style={{ opacity: 0.4 + 0.6 * returnHint }}
             >
               &lt;-
@@ -359,7 +362,7 @@ export default function PermitDeskGame() {
           <span className="inline-flex items-center gap-2">
             Approve
             <span
-              className="inline-flex items-center justify-center w-7 h-7 rounded-full border border-primary-200 bg-white"
+              className="inline-flex items-center justify-center w-6 h-6 rounded-full border border-primary-200 bg-white"
               style={{ opacity: 0.4 + 0.6 * approveHint }}
             >
               -&gt;
@@ -379,14 +382,14 @@ export default function PermitDeskGame() {
             className="rounded-2xl border border-primary-200 bg-white shadow-sm overflow-hidden transition-transform"
             style={{ transform: `translateX(${dragX}px) rotate(${tilt}deg)` }}
           >
-            <div className="p-5 md:p-6 border-b border-primary-100 bg-primary-50">
+            <div className="p-3 sm:p-4 md:p-6 border-b border-primary-100 bg-primary-50">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs font-semibold text-primary-500 uppercase tracking-wider">Incoming Request</p>
-                  <h4 className="text-xl font-extrabold text-primary-900 leading-tight">
+                  <h4 className="text-base sm:text-lg md:text-xl font-extrabold text-primary-900 leading-tight">
                     {current.title} <span className="text-primary-400">({current.code})</span>
                   </h4>
-                  <p className="mt-1 text-sm text-primary-600">{current.flavor}</p>
+                  <p className="mt-1 text-xs sm:text-sm text-primary-600">{current.flavor}</p>
                 </div>
 
                 {current.isExpedite ? (
@@ -401,10 +404,10 @@ export default function PermitDeskGame() {
               </div>
             </div>
 
-            <div className="p-4 md:p-5">
-              <p className="text-sm font-semibold text-primary-900 mb-3">Checklist</p>
+            <div className="p-3 sm:p-4 md:p-5">
+              <p className="text-xs sm:text-sm font-semibold text-primary-900 mb-2 sm:mb-3">Checklist</p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
                 {current.requirements.map((req) => {
                   const meta = REQUIREMENT_META[req.key];
                   const ok = current.present[req.key];
@@ -412,15 +415,15 @@ export default function PermitDeskGame() {
                   return (
                     <div
                       key={req.key}
-                      className={`flex items-center justify-between rounded-lg border px-3 py-2 ${
+                      className={`flex items-center justify-between rounded-lg border px-2.5 py-1.5 sm:px-3 sm:py-2 ${
                         ok ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"
                       }`}
                     >
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-primary-500">{meta.short}</span>
-                        <span className="text-sm font-semibold text-primary-900">{label}</span>
+                        <span className="text-[11px] font-bold text-primary-500">{meta.short}</span>
+                        <span className="text-xs sm:text-sm font-semibold text-primary-900">{label}</span>
                       </div>
-                      <span className={`text-xs font-bold ${ok ? "text-green-700" : "text-red-700"}`}>
+                      <span className={`text-[11px] font-bold ${ok ? "text-green-700" : "text-red-700"}`}>
                         {ok ? "OK" : "MISSING"}
                       </span>
                     </div>
@@ -428,22 +431,22 @@ export default function PermitDeskGame() {
                 })}
               </div>
 
-              <div className="mt-5 rounded-lg border border-primary-200 bg-white p-4">
+              <div className="mt-3 sm:mt-5 rounded-lg border border-primary-200 bg-white p-3 sm:p-4">
                 <p className="text-xs font-semibold text-primary-500 uppercase tracking-wider mb-2">Desk Note</p>
-                <p className="text-sm text-primary-700">
+                <p className="text-xs sm:text-sm text-primary-700">
                   Approve only if every item is present. Otherwise: return for more info.
                 </p>
               </div>
             </div>
 
-            <div className="p-4 md:p-5 border-t border-primary-100 bg-white">
+            <div className="p-3 sm:p-4 md:p-5 border-t border-primary-100 bg-white">
               <div className="flex flex-row flex-nowrap gap-3">
                 <button
                   onClick={() => handleDecision("return")}
                   disabled={!running || ended}
-                  className="flex-1 min-w-0 px-4 py-3 rounded-lg border-2 border-primary-300 text-primary-800 font-semibold hover:bg-primary-50 transition-colors disabled:opacity-50 flex items-center justify-center gap-3"
+                  className="flex-1 min-w-0 px-3 py-2 rounded-lg border-2 border-primary-300 text-primary-800 text-sm font-semibold hover:bg-primary-50 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
                 >
-                  <span className="relative w-10 h-10 rounded-full overflow-hidden bg-primary-100">
+                  <span className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden bg-primary-100">
                     <Image
                       src="/images/Vexthar.jpg"
                       alt="High Commander Vex'Thar"
@@ -458,9 +461,9 @@ export default function PermitDeskGame() {
                 <button
                   onClick={() => handleDecision("approve")}
                   disabled={!running || ended}
-                  className="flex-1 min-w-0 px-4 py-3 rounded-lg bg-accent-600 hover:bg-accent-700 text-white font-semibold transition-colors disabled:opacity-50 flex items-center justify-center gap-3"
+                  className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-accent-600 hover:bg-accent-700 text-white text-sm font-semibold transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
                 >
-                  <span className="relative w-10 h-10 rounded-full overflow-hidden bg-primary-100">
+                  <span className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden bg-primary-100">
                     <Image
                       src="/images/Mildred.jpg"
                       alt="Mildred Higgins"
