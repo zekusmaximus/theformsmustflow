@@ -293,7 +293,7 @@ export default function PermitDeskGame() {
             {!running ? (
               <button
                 onClick={resetGame}
-                className="px-2.5 py-1 rounded-lg bg-accent-600 hover:bg-accent-700 text-white text-xs font-semibold transition-colors"
+                className="px-3 py-2 rounded-lg bg-accent-600 hover:bg-accent-700 text-white text-xs font-semibold transition-colors min-h-9"
               >
                 Start
               </button>
@@ -303,7 +303,7 @@ export default function PermitDeskGame() {
                   setRunning(false);
                   setBanner("Shift paused.");
                 }}
-                className="px-2.5 py-1 rounded-lg border-2 border-primary-300 text-primary-800 text-xs font-semibold hover:bg-primary-50 transition-colors"
+                className="px-3 py-2 rounded-lg border-2 border-primary-300 text-primary-800 text-xs font-semibold hover:bg-primary-50 transition-colors min-h-9"
               >
                 Pause
               </button>
@@ -313,7 +313,7 @@ export default function PermitDeskGame() {
 
         <div className="flex flex-col md:flex-row md:items-center gap-1.5 sm:gap-2">
           <div className="flex items-center gap-2 rounded-lg bg-primary-50 px-2 py-1">
-            <div className="text-[9px] text-primary-500">
+            <div className="text-[10px] text-primary-500">
               <div>Score</div>
               <div>Combo</div>
               <div>High</div>
@@ -325,11 +325,11 @@ export default function PermitDeskGame() {
             </div>
           </div>
           <div className="flex-1">
-            <div className="flex items-center justify-between text-[9px] text-primary-500 mb-0.5">
+            <div className="flex items-center justify-between text-[10px] text-primary-500 mb-0.5">
               <span>Invasion</span>
               <span className="tabular-nums">{invasion}%</span>
             </div>
-            <div className="h-1.5 rounded-full bg-primary-100 overflow-hidden">
+            <div className="h-2 rounded-full bg-primary-100 overflow-hidden">
               <div
                 className="h-full bg-accent-600 transition-all"
                 style={{ width: `${invasion}%` }}
@@ -410,15 +410,18 @@ export default function PermitDeskGame() {
                 {current.requirements.map((req) => {
                   const meta = REQUIREMENT_META[req.key];
                   const ok = current.present[req.key];
+                  const label = ok ? req.label : `Missing ${req.label}`;
                   return (
                     <div
                       key={req.key}
                       className={`flex items-center justify-between rounded border px-1.5 py-1 ${
                         ok ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"
                       }`}
+                      title={label}
+                      aria-label={label}
                     >
                       <div className="flex items-center gap-1 min-w-0">
-                        <span className="text-[9px] font-bold text-primary-500 whitespace-nowrap">{meta.short}</span>
+                        <span className="text-[10px] font-bold text-primary-500 whitespace-nowrap">{meta.short}</span>
                         <span className={`text-[10px] font-semibold truncate ${ok ? "text-green-700" : "text-red-700"}`}>
                           {ok ? "✓" : "✗"}
                         </span>
@@ -429,7 +432,7 @@ export default function PermitDeskGame() {
               </div>
 
               <div className="mt-2 rounded border border-primary-200 bg-white px-2 py-1">
-                <p className="text-[9px] font-semibold text-primary-500 uppercase tracking-wider">Note</p>
+                <p className="text-[10px] font-semibold text-primary-500 uppercase tracking-wider">Note</p>
                 <p className="text-[10px] text-primary-700">
                   Approve if all present, else return.
                 </p>
@@ -441,14 +444,14 @@ export default function PermitDeskGame() {
                 <button
                   onClick={() => handleDecision("return")}
                   disabled={!running || ended}
-                  className="flex-1 min-w-0 px-2 py-1.5 rounded-lg border-2 border-primary-300 text-primary-800 text-xs font-semibold hover:bg-primary-50 transition-colors disabled:opacity-50 flex items-center justify-center"
+                  className="flex-1 min-w-0 px-3 py-2 rounded-lg border-2 border-primary-300 text-primary-800 text-xs font-semibold hover:bg-primary-50 transition-colors disabled:opacity-50 flex items-center justify-center min-h-10"
                 >
                   Return
                 </button>
                 <button
                   onClick={() => handleDecision("approve")}
                   disabled={!running || ended}
-                  className="flex-1 min-w-0 px-2 py-1.5 rounded-lg bg-accent-600 hover:bg-accent-700 text-white text-xs font-semibold transition-colors disabled:opacity-50 flex items-center justify-center"
+                  className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-accent-600 hover:bg-accent-700 text-white text-xs font-semibold transition-colors disabled:opacity-50 flex items-center justify-center min-h-10"
                 >
                   Approve
                 </button>
