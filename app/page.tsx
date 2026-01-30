@@ -60,10 +60,10 @@ export default function LandingPage() {
       <ValueProps />
 
       {/* Mini-game: The Permit Desk */}
-      <section id="permit-desk" className="py-16 md:py-24 bg-white">
+      <section id="permit-desk" className="py-12 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <p className="inline-block px-4 py-1.5 bg-accent-100 text-accent-700 text-sm font-medium rounded-full mb-4">
+          <div className="text-center mb-8 md:mb-10">
+            <p className="inline-block px-4 py-1.5 bg-accent-100 text-accent-700 text-sm font-medium rounded-full mb-3 md:mb-4">
               Mini-Game
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-primary-900">
