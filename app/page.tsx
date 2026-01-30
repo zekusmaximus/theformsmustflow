@@ -60,16 +60,16 @@ export default function LandingPage() {
       <ValueProps />
 
       {/* Mini-game: The Permit Desk */}
-      <section id="permit-desk" className="py-12 md:py-24 bg-white">
+      <section id="permit-desk" className="py-8 md:py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 md:mb-10">
-            <p className="inline-block px-4 py-1.5 bg-accent-100 text-accent-700 text-sm font-medium rounded-full mb-3 md:mb-4">
+          <div className="text-center mb-4 md:mb-6">
+            <p className="inline-block px-3 py-1 bg-accent-100 text-accent-700 text-xs font-medium rounded-full mb-2">
               Mini-Game
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-900">
+            <h2 className="text-2xl md:text-3xl font-bold text-primary-900">
               The Permit Desk
             </h2>
-            <p className="mt-3 text-primary-600 max-w-2xl mx-auto">
+            <p className="mt-1.5 text-sm text-primary-600 max-w-2xl mx-auto">
               Stop a hive-mind invasion the only way that works: paperwork.
             </p>
           </div>

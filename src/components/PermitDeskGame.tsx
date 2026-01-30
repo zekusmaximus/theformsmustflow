@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { FORM_TEMPLATES, REQUIREMENT_META, RequirementKey } from "@/lib/forms";
 
@@ -276,27 +275,27 @@ export default function PermitDeskGame() {
   const returnHint = dragX < 0 ? Math.min(Math.abs(dragX) / 160, 1) : 0;
 
   return (
-    <div className="rounded-2xl border border-primary-200 bg-white shadow-lg p-3 sm:p-4 md:p-5">
-      <div className="flex flex-col gap-2 sm:gap-3">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 sm:gap-3">
+    <div className="rounded-2xl border border-primary-200 bg-white shadow-lg p-2 sm:p-3">
+      <div className="flex flex-col gap-1.5 sm:gap-2">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1.5 sm:gap-2">
           <div>
-            <p className="text-xs font-semibold text-primary-500 uppercase tracking-wider">Permit Desk</p>
-            <h3 className="text-base sm:text-lg font-bold text-primary-900">Swipe-to-Approve</h3>
-            <p className="mt-1 text-[11px] text-primary-500">
-              Mobile: swipe card - Desktop: Left/Right or A/D
+            <p className="text-[10px] font-semibold text-primary-500 uppercase tracking-wider">Permit Desk</p>
+            <h3 className="text-sm sm:text-base font-bold text-primary-900">Swipe-to-Approve</h3>
+            <p className="text-[10px] text-primary-500">
+              Swipe or use arrow keys
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <div className="rounded-lg bg-primary-50 px-2.5 py-1.5">
-              <p className="text-[11px] text-primary-500">Time</p>
-              <p className="text-base font-bold text-primary-900 tabular-nums">{secondsLeft}s</p>
+            <div className="rounded-lg bg-primary-50 px-2 py-1">
+              <p className="text-[10px] text-primary-500">Time</p>
+              <p className="text-sm font-bold text-primary-900 tabular-nums">{secondsLeft}s</p>
             </div>
             {!running ? (
               <button
                 onClick={resetGame}
-                className="px-3 py-1.5 rounded-lg bg-accent-600 hover:bg-accent-700 text-white text-sm font-semibold transition-colors"
+                className="px-2.5 py-1 rounded-lg bg-accent-600 hover:bg-accent-700 text-white text-xs font-semibold transition-colors"
               >
-                Start a Shift
+                Start
               </button>
             ) : (
               <button
@@ -304,7 +303,7 @@ export default function PermitDeskGame() {
                   setRunning(false);
                   setBanner("Shift paused.");
                 }}
-                className="px-3 py-1.5 rounded-lg border-2 border-primary-300 text-primary-800 text-sm font-semibold hover:bg-primary-50 transition-colors"
+                className="px-2.5 py-1 rounded-lg border-2 border-primary-300 text-primary-800 text-xs font-semibold hover:bg-primary-50 transition-colors"
               >
                 Pause
               </button>
@@ -312,25 +311,25 @@ export default function PermitDeskGame() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-center gap-2 sm:gap-3">
-          <div className="flex items-center gap-2 rounded-lg bg-primary-50 px-2.5 py-2">
-            <div className="text-[10px] text-primary-500">
+        <div className="flex flex-col md:flex-row md:items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-2 rounded-lg bg-primary-50 px-2 py-1">
+            <div className="text-[9px] text-primary-500">
               <div>Score</div>
               <div>Combo</div>
               <div>High</div>
             </div>
-            <div className="text-xs font-bold text-primary-900 tabular-nums">
+            <div className="text-[11px] font-bold text-primary-900 tabular-nums">
               <div>{score}</div>
               <div>{combo}</div>
               <div>{highScore}</div>
             </div>
           </div>
           <div className="flex-1">
-            <div className="flex items-center justify-between text-[10px] text-primary-500 mb-1">
+            <div className="flex items-center justify-between text-[9px] text-primary-500 mb-0.5">
               <span>Invasion</span>
               <span className="tabular-nums">{invasion}%</span>
             </div>
-            <div className="h-2 rounded-full bg-primary-100 overflow-hidden">
+            <div className="h-1.5 rounded-full bg-primary-100 overflow-hidden">
               <div
                 className="h-full bg-accent-600 transition-all"
                 style={{ width: `${invasion}%` }}
@@ -341,7 +340,7 @@ export default function PermitDeskGame() {
         </div>
 
         <div
-          className="rounded-lg bg-secondary-50 border border-secondary-200 px-3 text-xs text-secondary-900 h-8 flex items-center overflow-hidden"
+          className="rounded-lg bg-secondary-50 border border-secondary-200 px-2 text-[10px] text-secondary-900 h-6 flex items-center overflow-hidden"
           aria-live="polite"
         >
           <span className={`transition-opacity truncate ${banner ? "opacity-100" : "opacity-0"}`}>
@@ -349,20 +348,20 @@ export default function PermitDeskGame() {
           </span>
         </div>
 
-        <div className="flex items-center justify-between text-[11px] text-primary-500">
-          <span className="inline-flex items-center gap-2">
+        <div className="flex items-center justify-between text-[10px] text-primary-500">
+          <span className="inline-flex items-center gap-1">
             <span
-              className="inline-flex items-center justify-center w-6 h-6 rounded-full border border-primary-200 bg-white"
+              className="inline-flex items-center justify-center w-5 h-5 rounded-full border border-primary-200 bg-white text-[10px]"
               style={{ opacity: 0.4 + 0.6 * returnHint }}
             >
               &lt;-
             </span>
-            Return for More Info
+            Return
           </span>
-          <span className="inline-flex items-center gap-2">
+          <span className="inline-flex items-center gap-1">
             Approve
             <span
-              className="inline-flex items-center justify-center w-6 h-6 rounded-full border border-primary-200 bg-white"
+              className="inline-flex items-center justify-center w-5 h-5 rounded-full border border-primary-200 bg-white text-[10px]"
               style={{ opacity: 0.4 + 0.6 * approveHint }}
             >
               -&gt;
@@ -379,100 +378,78 @@ export default function PermitDeskGame() {
           onPointerCancel={onPointerUp}
         >
           <div
-            className="rounded-2xl border border-primary-200 bg-white shadow-sm overflow-hidden transition-transform"
+            className="rounded-xl border border-primary-200 bg-white shadow-sm overflow-hidden transition-transform"
             style={{ transform: `translateX(${dragX}px) rotate(${tilt}deg)` }}
           >
-            <div className="p-3 sm:p-4 md:p-6 border-b border-primary-100 bg-primary-50">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-xs font-semibold text-primary-500 uppercase tracking-wider">Incoming Request</p>
-                  <h4 className="text-base sm:text-lg md:text-xl font-extrabold text-primary-900 leading-tight">
-                    {current.title} <span className="text-primary-400">({current.code})</span>
+            <div className="p-2 sm:p-3 border-b border-primary-100 bg-primary-50">
+              <div className="flex items-start justify-between gap-2">
+                <div className="min-w-0 flex-1">
+                  <p className="text-[10px] font-semibold text-primary-500 uppercase tracking-wider">Request</p>
+                  <h4 className="text-sm sm:text-base font-extrabold text-primary-900 leading-tight">
+                    {current.title} <span className="text-primary-400 text-xs">({current.code})</span>
                   </h4>
-                  <p className="mt-1 text-xs sm:text-sm text-primary-600">{current.flavor}</p>
+                  <p className="mt-0.5 text-[10px] sm:text-xs text-primary-600 line-clamp-1">{current.flavor}</p>
                 </div>
 
                 {current.isExpedite ? (
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-accent-100 text-accent-700 text-xs font-semibold">
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-accent-100 text-accent-700 text-[10px] font-semibold whitespace-nowrap">
                     EXPEDITE
                   </span>
                 ) : (
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary-100 text-primary-700 text-xs font-semibold">
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-primary-100 text-primary-700 text-[10px] font-semibold whitespace-nowrap">
                     STANDARD
                   </span>
                 )}
               </div>
             </div>
 
-            <div className="p-3 sm:p-4 md:p-5">
-              <p className="text-xs sm:text-sm font-semibold text-primary-900 mb-2 sm:mb-3">Checklist</p>
+            <div className="p-2 sm:p-3">
+              <p className="text-[10px] font-semibold text-primary-900 mb-1.5">Checklist</p>
 
-              <div className="grid grid-cols-2 gap-2 sm:gap-3">
+              <div className="grid grid-cols-2 gap-1.5">
                 {current.requirements.map((req) => {
                   const meta = REQUIREMENT_META[req.key];
                   const ok = current.present[req.key];
-                  const label = ok ? req.label : `Missing ${req.label}`;
                   return (
                     <div
                       key={req.key}
-                      className={`flex items-center justify-between rounded-lg border px-2.5 py-1.5 sm:px-3 sm:py-2 ${
+                      className={`flex items-center justify-between rounded border px-1.5 py-1 ${
                         ok ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"
                       }`}
                     >
-                      <div className="flex items-center gap-2">
-                        <span className="text-[11px] font-bold text-primary-500">{meta.short}</span>
-                        <span className="text-xs sm:text-sm font-semibold text-primary-900">{label}</span>
+                      <div className="flex items-center gap-1 min-w-0">
+                        <span className="text-[9px] font-bold text-primary-500 whitespace-nowrap">{meta.short}</span>
+                        <span className={`text-[10px] font-semibold truncate ${ok ? "text-green-700" : "text-red-700"}`}>
+                          {ok ? "✓" : "✗"}
+                        </span>
                       </div>
-                      <span className={`text-[11px] font-bold ${ok ? "text-green-700" : "text-red-700"}`}>
-                        {ok ? "OK" : "MISSING"}
-                      </span>
                     </div>
                   );
                 })}
               </div>
 
-              <div className="mt-3 sm:mt-5 rounded-lg border border-primary-200 bg-white p-3 sm:p-4">
-                <p className="text-xs font-semibold text-primary-500 uppercase tracking-wider mb-2">Desk Note</p>
-                <p className="text-xs sm:text-sm text-primary-700">
-                  Approve only if every item is present. Otherwise: return for more info.
+              <div className="mt-2 rounded border border-primary-200 bg-white px-2 py-1">
+                <p className="text-[9px] font-semibold text-primary-500 uppercase tracking-wider">Note</p>
+                <p className="text-[10px] text-primary-700">
+                  Approve if all present, else return.
                 </p>
               </div>
             </div>
 
-            <div className="p-3 sm:p-4 md:p-5 border-t border-primary-100 bg-white">
-              <div className="flex flex-row flex-nowrap gap-3">
+            <div className="p-2 sm:p-3 border-t border-primary-100 bg-white">
+              <div className="flex flex-row flex-nowrap gap-2">
                 <button
                   onClick={() => handleDecision("return")}
                   disabled={!running || ended}
-                  className="flex-1 min-w-0 px-3 py-2 rounded-lg border-2 border-primary-300 text-primary-800 text-sm font-semibold hover:bg-primary-50 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="flex-1 min-w-0 px-2 py-1.5 rounded-lg border-2 border-primary-300 text-primary-800 text-xs font-semibold hover:bg-primary-50 transition-colors disabled:opacity-50 flex items-center justify-center"
                 >
-                  <span className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden bg-primary-100">
-                    <Image
-                      src="/images/Vexthar.jpg"
-                      alt="High Commander Vex'Thar"
-                      fill
-                      sizes="40px"
-                      className="object-cover"
-                      priority={false}
-                    />
-                  </span>
-                  Return for More Info
+                  Return
                 </button>
                 <button
                   onClick={() => handleDecision("approve")}
                   disabled={!running || ended}
-                  className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-accent-600 hover:bg-accent-700 text-white text-sm font-semibold transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="flex-1 min-w-0 px-2 py-1.5 rounded-lg bg-accent-600 hover:bg-accent-700 text-white text-xs font-semibold transition-colors disabled:opacity-50 flex items-center justify-center"
                 >
-                  <span className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden bg-primary-100">
-                    <Image
-                      src="/images/Mildred.jpg"
-                      alt="Mildred Higgins"
-                      fill
-                      sizes="40px"
-                      className="object-cover"
-                      priority={false}
-                    />
-                  </span>
                   Approve
                 </button>
               </div>
@@ -481,26 +458,26 @@ export default function PermitDeskGame() {
         </div>
 
         {ended ? (
-          <div className="rounded-xl border border-primary-200 bg-primary-50 p-5 md:p-6">
-            <h4 className="text-lg font-extrabold text-primary-900">Shift Summary</h4>
-            <p className="mt-1 text-sm text-primary-700">
-              Score: <span className="font-bold tabular-nums">{score}</span> - High Score:{" "}
+          <div className="rounded-xl border border-primary-200 bg-primary-50 p-3">
+            <h4 className="text-sm font-extrabold text-primary-900">Shift Complete</h4>
+            <p className="mt-0.5 text-xs text-primary-700">
+              Score: <span className="font-bold tabular-nums">{score}</span> - High: {" "}
               <span className="font-bold tabular-nums">{Math.max(highScore, score)}</span>
             </p>
-            <div className="mt-4 flex flex-col sm:flex-row gap-3">
+            <div className="mt-2 flex flex-col sm:flex-row gap-2">
               <button
                 onClick={resetGame}
-                className="w-full px-4 py-3 rounded-lg bg-accent-600 hover:bg-accent-700 text-white font-semibold transition-colors"
+                className="w-full px-3 py-2 rounded-lg bg-accent-600 hover:bg-accent-700 text-white text-xs font-semibold transition-colors"
               >
-                Start Another Shift
+                Play Again
               </button>
               <a
                 href="https://a.co/d/h9ehTip"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center px-4 py-3 rounded-lg border-2 border-primary-300 text-primary-900 font-semibold hover:bg-white transition-colors"
+                className="w-full inline-flex items-center justify-center px-3 py-2 rounded-lg border-2 border-primary-300 text-primary-900 text-xs font-semibold hover:bg-white transition-colors"
               >
-                Buy the Book
+                Buy Book
               </a>
             </div>
           </div>
