@@ -120,9 +120,13 @@ export default function PermitDeskGame() {
 
   // Swipe / drag UI state
   const cardRef = useRef<HTMLDivElement | null>(null);
+  const cardInnerRef = useRef<HTMLDivElement | null>(null);
+  const approveHintRef = useRef<HTMLSpanElement | null>(null);
+  const returnHintRef = useRef<HTMLSpanElement | null>(null);
+
   const startX = useRef<number | null>(null);
   const dragging = useRef(false);
-  const [dragX, setDragX] = useState(0);
+  const dragXRef = useRef(0);
 
   const ended = useMemo(() => invasion >= 100 || (running && secondsLeft <= 0), [invasion, running, secondsLeft]);
 
@@ -156,7 +160,7 @@ export default function PermitDeskGame() {
 
     // Finalize high score once
     setRunning(false);
-    setDragX(0);
+    dragXRef.current = 0;
 
     setHighScore((hs) => {
       const next = Math.max(hs, score);
@@ -196,12 +200,12 @@ export default function PermitDeskGame() {
     setInvasion(0);
     setBanner("");
     setCurrent(generateForm());
-    setDragX(0);
+    dragXRef.current = 0;
   }
 
   function nextCard() {
     setCurrent(generateForm());
-    setDragX(0);
+    dragXRef.current = 0;
   }
 
   function flash(msg: string) {
@@ -251,28 +255,53 @@ export default function PermitDeskGame() {
     dragging.current = true;
     startX.current = e.clientX;
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+
+    if (cardInnerRef.current) {
+      cardInnerRef.current.style.transition = 'none';
+    }
   }
 
   function onPointerMove(e: ReactPointerEvent<HTMLDivElement>) {
     if (!dragging.current || startX.current == null) return;
     const dx = e.clientX - startX.current;
-    setDragX(clamp(dx, -160, 160));
+    const newDragX = clamp(dx, -160, 160);
+    dragXRef.current = newDragX;
+
+    if (cardInnerRef.current) {
+      const tilt = newDragX / 20;
+      cardInnerRef.current.style.transform = `translateX(${newDragX}px) rotate(${tilt}deg)`;
+    }
+
+    if (approveHintRef.current) {
+      const approveHint = newDragX > 0 ? Math.min(Math.abs(newDragX) / 160, 1) : 0;
+      approveHintRef.current.style.opacity = String(0.4 + 0.6 * approveHint);
+    }
+
+    if (returnHintRef.current) {
+      const returnHint = newDragX < 0 ? Math.min(Math.abs(newDragX) / 160, 1) : 0;
+      returnHintRef.current.style.opacity = String(0.4 + 0.6 * returnHint);
+    }
   }
 
   function onPointerUp() {
     if (!dragging.current) return;
     dragging.current = false;
+    const currentDragX = dragXRef.current;
 
-    if (dragX > SWIPE_THRESHOLD_PX) handleDecision("approve");
-    else if (dragX < -SWIPE_THRESHOLD_PX) handleDecision("return");
-    else setDragX(0);
+    if (currentDragX > SWIPE_THRESHOLD_PX) handleDecision("approve");
+    else if (currentDragX < -SWIPE_THRESHOLD_PX) handleDecision("return");
+    else {
+      dragXRef.current = 0;
+      if (cardInnerRef.current) {
+        cardInnerRef.current.style.transition = '';
+        cardInnerRef.current.style.transform = '';
+      }
+      if (approveHintRef.current) approveHintRef.current.style.opacity = "";
+      if (returnHintRef.current) returnHintRef.current.style.opacity = "";
+    }
 
     startX.current = null;
   }
-
-  const tilt = dragX / 20;
-  const approveHint = dragX > 0 ? Math.min(Math.abs(dragX) / 160, 1) : 0;
-  const returnHint = dragX < 0 ? Math.min(Math.abs(dragX) / 160, 1) : 0;
 
   return (
     <div className="rounded-2xl border border-primary-200 bg-white shadow-lg p-2 sm:p-3">
@@ -351,8 +380,9 @@ export default function PermitDeskGame() {
         <div className="flex items-center justify-between text-[10px] text-primary-500">
           <span className="inline-flex items-center gap-1">
             <span
+              ref={returnHintRef}
               className="inline-flex items-center justify-center w-5 h-5 rounded-full border border-primary-200 bg-white text-[10px]"
-              style={{ opacity: 0.4 + 0.6 * returnHint }}
+              style={{ opacity: 0.4 }}
             >
               &lt;-
             </span>
@@ -361,8 +391,9 @@ export default function PermitDeskGame() {
           <span className="inline-flex items-center gap-1">
             Approve
             <span
+              ref={approveHintRef}
               className="inline-flex items-center justify-center w-5 h-5 rounded-full border border-primary-200 bg-white text-[10px]"
-              style={{ opacity: 0.4 + 0.6 * approveHint }}
+              style={{ opacity: 0.4 }}
             >
               -&gt;
             </span>
@@ -378,8 +409,9 @@ export default function PermitDeskGame() {
           onPointerCancel={onPointerUp}
         >
           <div
+            ref={cardInnerRef}
+            key={current.id}
             className="rounded-xl border border-primary-200 bg-white shadow-sm overflow-hidden transition-transform"
-            style={{ transform: `translateX(${dragX}px) rotate(${tilt}deg)` }}
           >
             <div className="p-2 sm:p-3 border-b border-primary-100 bg-primary-50">
               <div className="flex items-start justify-between gap-2">
