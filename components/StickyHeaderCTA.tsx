@@ -26,14 +26,29 @@ export function StickyHeaderCTA({ className = '' }: StickyHeaderCTAProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+    let rafId: number;
+
     const handleScroll = () => {
-      // Show header after scrolling past 400px (roughly hero section)
-      const shouldShow = window.scrollY > 400;
-      setIsVisible(shouldShow);
+      if (!ticking) {
+        rafId = window.requestAnimationFrame(() => {
+          // Show header after scrolling past 400px (roughly hero section)
+          const shouldShow = window.scrollY > 400;
+          setIsVisible(shouldShow);
+          ticking = false;
+        });
+
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+      }
+    };
   }, []);
 
   return (
