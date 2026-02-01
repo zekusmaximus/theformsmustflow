@@ -67,8 +67,6 @@ export function EmailCapture({ onSuccess, onCancel, className = '' }: EmailCaptu
     //
     // ==========================================
 
-    // Simulate API call (remove in production)
-    await new Promise(resolve => setTimeout(resolve, 1000));
     console.log('[Email Capture] Submitted:', email);
 
     setIsSubmitting(false);
