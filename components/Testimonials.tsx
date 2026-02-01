@@ -3,7 +3,7 @@
 
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 
 interface Testimonial {
   name: string;
@@ -56,6 +56,17 @@ export function Testimonials({ className = '' }: { className?: string }) {
     return () => clearInterval(id);
   }, []);
 
+  const desktopGrid = useMemo(
+    () => (
+      <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        {testimonials.map((testimonial, idx) => (
+          <TestimonialCard key={idx} testimonial={testimonial} index={idx} />
+        ))}
+      </div>
+    ),
+    []
+  );
+
   return (
     <section
       className={`relative py-16 md:py-20 overflow-hidden ${className}`}
@@ -103,11 +114,7 @@ export function Testimonials({ className = '' }: { className?: string }) {
         </div>
 
         {/* Grid on desktop */}
-        <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-          {testimonials.map((testimonial, idx) => (
-            <TestimonialCard key={idx} testimonial={testimonial} index={idx} />
-          ))}
-        </div>
+        {desktopGrid}
       </div>
     </section>
   );
