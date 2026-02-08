@@ -31,26 +31,6 @@ function uuid() {
   return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 9)}`;
 }
 
-function initialForm(): GeneratedForm {
-  const template = FORM_TEMPLATES[0];
-  return {
-    id: "initial",
-    title: template.title,
-    code: template.code,
-    flavor: template.flavor,
-    requirements: template.requirements,
-    present: {
-      signature: true,
-      fee: true,
-      supportingDoc: true,
-      correctForm: true,
-      notarized: true,
-    },
-    shouldApprove: true,
-    isExpedite: template.code === "X-1",
-  };
-}
-
 function generateForm(): GeneratedForm {
   const template = FORM_TEMPLATES[randInt(0, FORM_TEMPLATES.length - 1)];
   const isExpedite = template.code === "X-1";
@@ -113,10 +93,10 @@ export default function PermitDeskGame() {
   const [score, setScore] = useState(0);
   const [combo, setCombo] = useState(0);
   const [invasion, setInvasion] = useState(0); // 0..100
-  const [current, setCurrent] = useState<GeneratedForm>(() => initialForm());
+  const [current, setCurrent] = useState<GeneratedForm>(() => generateForm());
   const [banner, setBanner] = useState<string>("");
 
-  const [highScore, setHighScore] = useState(0);
+  const [highScore, setHighScore] = useState(() => loadHighScore());
 
   // Swipe / drag UI state
   const cardRef = useRef<HTMLDivElement | null>(null);
@@ -129,11 +109,6 @@ export default function PermitDeskGame() {
   const dragXRef = useRef(0);
 
   const ended = useMemo(() => invasion >= 100 || (running && secondsLeft <= 0), [invasion, running, secondsLeft]);
-
-  useEffect(() => {
-    setHighScore(loadHighScore());
-    setCurrent(generateForm());
-  }, []);
 
   useEffect(() => {
     if (!running) return;

@@ -20,7 +20,11 @@ import {
 } from '@/components';
 import { useExitIntent } from '@/hooks';
 import { siteConfig } from '@/site.config';
-import PermitDeskGame from "@/components/PermitDeskGame";
+import dynamic from "next/dynamic";
+
+const PermitDeskGame = dynamic(() => import("@/components/PermitDeskGame"), {
+  ssr: false,
+});
 
 /**
  * Landing Page
