@@ -150,22 +150,27 @@ export default function PermitDeskGame() {
     }
   }, [ended, invasion, score]);
 
+  const handleDecisionRef = useRef(handleDecision);
+  useEffect(() => {
+    handleDecisionRef.current = handleDecision;
+  });
+
   useEffect(() => {
     // Keyboard controls (desktop)
     const onKeyDown = (e: KeyboardEvent) => {
       if (!running || ended) return;
       if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") {
         e.preventDefault();
-        handleDecision("approve");
+        handleDecisionRef.current("approve");
       }
       if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") {
         e.preventDefault();
-        handleDecision("return");
+        handleDecisionRef.current("return");
       }
     };
     window.addEventListener("keydown", onKeyDown, { passive: false });
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [running, ended, current, combo, score, secondsLeft, invasion, handleDecision]);
+  }, [running, ended]);
 
   function resetGame() {
     setRunning(true);
