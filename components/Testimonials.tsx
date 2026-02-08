@@ -50,10 +50,25 @@ export function Testimonials({ className = '' }: { className?: string }) {
   const [active, setActive] = useState<number>(0);
 
   useEffect(() => {
-    const id = setInterval(() => {
-      setActive((prev: number) => (prev + 1) % testimonials.length);
-    }, 4200);
-    return () => clearInterval(id);
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
+    let intervalId: ReturnType<typeof setInterval> | null = null;
+
+    const updateInterval = () => {
+      if (intervalId) clearInterval(intervalId);
+      if (!mediaQuery.matches) {
+        intervalId = setInterval(() => {
+          setActive((prev: number) => (prev + 1) % testimonials.length);
+        }, 4200);
+      }
+    };
+
+    updateInterval();
+    mediaQuery.addEventListener('change', updateInterval);
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+      mediaQuery.removeEventListener('change', updateInterval);
+    };
   }, []);
 
   const desktopGrid = useMemo(
