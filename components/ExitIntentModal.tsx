@@ -6,7 +6,6 @@
 import React, { useEffect, useRef } from 'react';
 import { EmailCapture } from './EmailCapture';
 import { copy } from '@/copy';
-import { useExitIntent } from '@/hooks';
 import { siteConfig } from '@/site.config';
 import { trackExitIntent } from '@/lib/analytics';
 
@@ -28,13 +27,6 @@ export function ExitIntentModal({ onClose }: ExitIntentModalProps) {
 
   // Only enable if both flags are true
   const isEnabled = siteConfig.features.exitIntent && siteConfig.features.emailCapture;
-
-  useExitIntent({
-    enabled: isEnabled,
-    onExitIntent: () => {
-      // Modal is controlled by parent, this just triggers
-    },
-  });
 
   // Close on escape key
   useEffect(() => {
