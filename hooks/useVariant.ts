@@ -44,13 +44,25 @@ export function useVariant(): UseVariantReturn {
       return;
     }
 
-    // Fall back to localStorage
-    const storedVariant = getLocalStorage<HeadlineVariant | null>(STORAGE_KEY, null);
-    if (storedVariant && [1, 2, 3, 4, 5].includes(storedVariant)) {
-      setVariantState(storedVariant);
-    }
+    // Defer localStorage read to avoid blocking main thread on mount
+    // This prevents frame drops during hydration if storage is slow
+    const requestIdleCallback =
+      (window as any).requestIdleCallback ||
+      ((cb: () => void) => window.setTimeout(cb, 1));
+    const cancelIdleCallback =
+      (window as any).cancelIdleCallback ||
+      ((id: number) => window.clearTimeout(id));
 
-    setIsInitialized(true);
+    const idleCallbackId = requestIdleCallback(() => {
+      // Fall back to localStorage
+      const storedVariant = getLocalStorage<HeadlineVariant | null>(STORAGE_KEY, null);
+      if (storedVariant && [1, 2, 3, 4, 5].includes(storedVariant)) {
+        setVariantState(storedVariant);
+      }
+      setIsInitialized(true);
+    });
+
+    return () => cancelIdleCallback(idleCallbackId);
   }, [isInitialized]);
 
   const setVariant = (newVariant: HeadlineVariant) => {
