@@ -24,19 +24,40 @@ interface TeaserProps {
  */
 export function Teaser({ variant = 'compact', className = '' }: TeaserProps) {
   const [currentExcerptIndex, setCurrentExcerptIndex] = React.useState(0);
+  const [isInView, setIsInView] = React.useState(false);
+  const containerRef = React.useRef<HTMLElement>(null);
   const allExcerpts = [copy.teaser.v1, copy.teaser.v2, copy.teaser.v3];
+
+  // Set up intersection observer to pause rotation when out of view
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.1 } // Consider visible if 10% is in view
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   // Auto-rotate through excerpts every 30 seconds
   React.useEffect(() => {
+    if (!isInView) return;
+
     const interval = setInterval(() => {
       setCurrentExcerptIndex((prev) => (prev + 1) % allExcerpts.length);
     }, 30000);
     return () => clearInterval(interval);
-  }, [allExcerpts.length]);
+  }, [allExcerpts.length, isInView]);
 
   if (variant === 'compact') {
     return (
       <section 
+        ref={containerRef as React.RefObject<HTMLElement>}
         className={`py-16 md:py-24 bg-primary-50 ${className}`}
         data-section="teaser"
         aria-labelledby="teaser-heading"
@@ -73,7 +94,7 @@ export function Teaser({ variant = 'compact', className = '' }: TeaserProps) {
   }
 
   return (
-    <div className={className} data-section="teaser">
+    <div ref={containerRef as React.RefObject<HTMLDivElement>} className={className} data-section="teaser">
       <TeaserContent content={allExcerpts[currentExcerptIndex]} />
     </div>
   );

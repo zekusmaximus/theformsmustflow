@@ -1,0 +1,28 @@
+
+> forms-must-flow-landing@1.0.0 dev
+> next dev
+
+  ▲ Next.js 14.2.0
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+ ✓ Ready in 2.3s
+ ○ Compiling / ...
+ ✓ Compiled / in 9.6s (574 modules)
+ ✓ Compiled in 1212ms (288 modules)
+ GET / 200 in 10935ms
+ GET / 200 in 82ms
+ GET / 200 in 78ms
+ ✓ Compiled in 751ms (565 modules)
+ GET / 200 in 278ms
+ GET / 200 in 192ms
+ GET / 200 in 87ms
+ ✓ Compiled in 791ms (565 modules)
+ GET / 200 in 266ms
+ ✓ Compiled in 658ms (565 modules)
+ GET / 200 in 155ms
