@@ -3,7 +3,7 @@
 
 'use client';
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useMemo } from 'react';
 import { trackScrollDepth } from '@/lib/analytics';
 import { throttle } from '@/lib/utils';
 
@@ -37,6 +37,14 @@ export function useScrollDepth(options: UseScrollDepthOptions = {}): UseScrollDe
   const hasReachedThreshold = useRef(false);
   const trackedMilestones = useRef<Set<number>>(new Set());
 
+  // Store options in a ref to keep handleScroll stable across renders
+  // while still accessing the latest values.
+  const optionsRef = useRef({ threshold, onThresholdReached, trackAnalytics });
+
+  useEffect(() => {
+    optionsRef.current = { threshold, onThresholdReached, trackAnalytics };
+  }, [threshold, onThresholdReached, trackAnalytics]);
+
   const calculateScrollDepth = useCallback(() => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -46,28 +54,30 @@ export function useScrollDepth(options: UseScrollDepthOptions = {}): UseScrollDe
     return Math.round((scrollTop / docHeight) * 100);
   }, []);
 
-  const handleScroll = useCallback(
-    throttle(() => {
-      const depth = calculateScrollDepth();
+  const handleScroll = useMemo(
+    () =>
+      throttle(() => {
+        const { threshold, onThresholdReached, trackAnalytics } = optionsRef.current;
+        const depth = calculateScrollDepth();
 
-      // Track milestone depths for analytics
-      if (trackAnalytics) {
-        const milestones = [25, 50, 75, 90];
-        milestones.forEach((milestone) => {
-          if (depth >= milestone && !trackedMilestones.current.has(milestone)) {
-            trackedMilestones.current.add(milestone);
-            trackScrollDepth(milestone);
-          }
-        });
-      }
+        // Track milestone depths for analytics
+        if (trackAnalytics) {
+          const milestones = [25, 50, 75, 90];
+          milestones.forEach((milestone) => {
+            if (depth >= milestone && !trackedMilestones.current.has(milestone)) {
+              trackedMilestones.current.add(milestone);
+              trackScrollDepth(milestone);
+            }
+          });
+        }
 
-      // Check threshold
-      if (depth >= threshold && !hasReachedThreshold.current) {
-        hasReachedThreshold.current = true;
-        onThresholdReached?.();
-      }
-    }, 200),
-    [threshold, onThresholdReached, trackAnalytics, calculateScrollDepth]
+        // Check threshold
+        if (depth >= threshold && !hasReachedThreshold.current) {
+          hasReachedThreshold.current = true;
+          onThresholdReached?.();
+        }
+      }, 200),
+    [calculateScrollDepth] // dependencies that are stable but needed for scope
   );
 
   useEffect(() => {
