@@ -13,7 +13,16 @@ import { siteConfig } from '@/site.config';
 export const metadata: Metadata = generateSEOMetadata({
   title: `Thank You | ${copy.metadata.seoTitle.v1}`,
   description: `Thanks for your interest in The Forms Must Flow. Get your copy on Amazon.`,
-  path: '/thank-you',
+  path: '/thank-you/',
+  // Conversion endpoint: do not index
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
 });
 
 /**

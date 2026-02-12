@@ -1,153 +1,114 @@
-# The Forms Must Flow — Landing Page
+﻿# The Forms Must Flow - Landing Site
 
-A high-converting landing page for the satirical sci-fi novel *The Forms Must Flow* by Jeffrey A. Zyjeski.
+Marketing site for *The Forms Must Flow* by Jeffrey A. Zyjeski.
 
-## Quick Start
+## Stack
+
+- Next.js 14 (App Router)
+- React 18
+- TypeScript
+- Tailwind CSS
+
+## Requirements
+
+- Node.js 18+
+- npm
+
+## Local Development
 
 ```bash
-# Install dependencies
 npm install
-
-# Run development server
 npm run dev
-
-# Build for production
-npm run build
-
-# The static export will be in the `dist` folder
 ```
 
-## Project Structure
+Open `http://localhost:3000`.
 
+## Scripts
+
+```bash
+npm run dev    # Start dev server
+npm run build  # Production build
+npm run start  # Run production server
+npm run lint   # Next.js linting
 ```
-forms-must-flow/
-├── app/                    # Next.js App Router pages
-│   ├── page.tsx           # Landing page
-│   ├── sample/page.tsx    # Sample/teaser page
-│   ├── thank-you/page.tsx # Thank you page
-│   ├── layout.tsx         # Root layout with SEO
-│   └── globals.css        # Global styles
-├── components/            # React components
-│   ├── Hero.tsx
-│   ├── CTAButton.tsx
-│   ├── CoverMock.tsx
-│   ├── ValueProps.tsx
-│   ├── Teaser.tsx
-│   ├── FAQAccordion.tsx
-│   ├── AuthorBio.tsx
-│   ├── StickyHeaderCTA.tsx
-│   ├── MobileStickyCTA.tsx
-│   ├── ShareBar.tsx
-│   ├── Footer.tsx
-│   ├── EmailCapture.tsx
-│   ├── ExitIntentModal.tsx
-│   ├── FinalCTA.tsx
-│   └── SocialProofPlaceholder.tsx
-├── hooks/                 # Custom React hooks
-│   ├── useVariant.ts
-│   ├── useScrollDepth.ts
-│   ├── useExitIntent.ts
-│   └── useCTAPulse.ts
-├── lib/                   # Utility functions
-│   ├── analytics.ts       # Analytics stub
-│   ├── seo.ts            # SEO metadata generation
-│   └── utils.ts          # General utilities
-├── types/                 # TypeScript types
-├── public/images/         # Static images
-├── site.config.ts         # Site configuration
-├── copy.ts               # All copy variants
-└── next.config.js        # Next.js configuration
-```
+
+## Routes
+
+- `/` - main landing page
+- `/sample` - sample/teaser page
+- `/thank-you` - thank-you page used by email capture flow
+
+## Current Landing Page Sections
+
+1. Sticky header CTA (desktop)
+2. Hero
+3. Value props
+4. Permit Desk mini-game
+5. Teaser content
+6. Testimonials
+7. FAQ
+8. Author bio
+9. Final CTA
+10. Share bar (feature-flagged)
+11. Footer
+12. Mobile sticky CTA
+13. Exit-intent modal (feature-flagged and requires email capture)
 
 ## Configuration
 
-Edit `site.config.ts` to customize:
+### `site.config.ts`
+Primary place for site settings:
 
-- Book title, author name, Amazon URL
-- Theme colors
-- Feature flags (email capture, exit intent, etc.)
-- Analytics settings
+- Book metadata (`bookTitle`, `authorName`, `amazonUrl`)
+- Canonical site URL (`siteUrl`)
+- Theme color tokens
+- Feature flags
+- Analytics placeholders
+- Email capture text
+- Share defaults
+- Image paths
+- Content defaults (including copy variant and sample word count)
 
-### Feature Flags
+### `copy.ts`
+Centralized content copy and variant packs.
 
-```typescript
-features: {
-  emailCapture: false,   // Enable email signup modal
-  pressKit: false,       // Show press kit link
-  sampleRoute: true,     // Enable /sample page
-  exitIntent: true,      // Enable exit-intent modal
-  scrollPulse: true,     // Enable mobile CTA pulse
-  shareBar: true,        // Show social sharing
-}
-```
+- Headline/subhead/CTA variants for A/B testing
+- Long/short blurbs, FAQ, metadata text, UI labels
+- Variant selection supports query parameter `?v=1` through `?v=5` and localStorage persistence
 
-## Copy Variants
+## Important Components and Modules
 
-All copy is in `copy.ts` with multiple variants for A/B testing:
+- `app/page.tsx` - main landing composition
+- `components/PermitDeskGame.tsx` - interactive mini-game loaded client-side only
+- `components/Testimonials.tsx` - social-proof section
+- `lib/seo.ts` - metadata + JSON-LD schema generation
+- `lib/analytics.ts` - analytics event interface (stubbed)
+- `lib/forms.ts` and `src/lib/forms.ts` - form templates used by the mini-game (root file re-exports from `src/`)
 
-- 5 headline variants
-- 5 subhead variants
-- 5 CTA button variants
-- 3 short blurbs
-- 2 long blurbs
+## Assets and SEO Files
 
-Select a variant via URL: `?v=1` through `?v=5`
+- `public/images/cover.jpg` - primary cover image
+- `public/images/og.jpg` - social sharing image
+- `public/sitemap.xml` - sitemap (currently includes `/` and `/sample`)
 
-## Analytics
+## Deployment Notes
 
-Analytics are stubbed in `lib/analytics.ts`. To wire your service:
+- Build output is Next.js standard output (`.next/`) for `npm run build` + `npm run start`.
+- `next.config.js` uses:
+  - `images.unoptimized = true`
+  - `trailingSlash = true`
+  - security headers
+  - host redirect from `theformsmustflow.online` to `www.theformsmustflow.online`
 
-1. Set `ANALYTICS_ENABLED = true`
-2. Add your tracking code in the `trackEvent` function
-3. Supports Plausible, GA4, or any custom solution
+If you need fully static hosting, add explicit static export configuration and a dedicated export flow before relying on `out/`.
 
-## Deployment
+## Known Cleanup Opportunities
 
-### Vercel (Recommended)
-
-```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Deploy
-vercel --prod
-```
-
-### Netlify
-
-```bash
-# Build
-npm run build
-
-# Deploy dist folder
-drag and drop dist/ to Netlify
-```
-
-### Static Hosting
-
-```bash
-npm run build
-# Upload contents of dist/ to your server
-```
-
-## Customization
-
-### Swap Cover Image
-
-Replace `public/images/cover.jpg` with your book cover.
-
-### Update Colors
-
-Edit the color palette in `tailwind.config.ts` and `site.config.ts`.
-
-### Add Real Reviews
-
-Replace `SocialProofPlaceholder` component with actual reviews when available.
-
-### Connect Email Service
-
-Edit `components/EmailCapture.tsx` and add your Mailchimp/ConvertKit integration.
+- Some text contains mojibake characters in source files (for example smart quotes rendered incorrectly).
+- `components/PermitDeskGame.tsx` and `lib/forms.ts` currently proxy to `src/*` implementations; consolidating to one location would reduce duplication.
+- Analytics and email capture integrations are still placeholders.
 
 ## License
 
-All rights reserved. This landing page is for the exclusive use of Jeffrey A. Zyjeski.
+All rights reserved. For exclusive use by Jeffrey A. Zyjeski.
+

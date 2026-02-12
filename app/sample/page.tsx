@@ -16,7 +16,7 @@ import { calculateReadingTime } from '@/lib/utils';
 export const metadata: Metadata = generateSEOMetadata({
   title: `Read a Sample | ${copy.metadata.seoTitle.v1}`,
   description: `Preview The Forms Must Flow with original teaser content. ${copy.metadata.metaDescription.v1}`,
-  path: '/sample',
+  path: '/sample/',
 });
 
 /**

@@ -54,10 +54,28 @@ export function Footer({ className = '' }: FooterProps) {
               </li>
               <li>
                 <a 
-                  href="/sample"
+                  href="/sample/"
                   className="hover:text-white transition-colors"
                 >
                   Read a Sample
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/about-the-author/"
+                  className="hover:text-white transition-colors"
+                >
+                  About the Author
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://www.zyjeski.com/"
+                  className="hover:text-white transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  zyjeski.com
                 </a>
               </li>
               {siteConfig.features.pressKit && (

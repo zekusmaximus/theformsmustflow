@@ -11,6 +11,21 @@ interface SEOPayload {
   path?: string;
   image?: string;
   type?: 'website' | 'book';
+  robots?: Metadata['robots'];
+}
+
+function toCanonicalUrl(path: string = '/'): string {
+  if (path.startsWith('http://') || path.startsWith('https://')) {
+    return path;
+  }
+
+  let normalizedPath = path.startsWith('/') ? path : `/${path}`;
+
+  if (normalizedPath !== '/' && !normalizedPath.endsWith('/')) {
+    normalizedPath = `${normalizedPath}/`;
+  }
+
+  return `${siteConfig.siteUrl}${normalizedPath}`;
 }
 
 export function generateMetadata(payload: SEOPayload = {}): Metadata {
@@ -20,9 +35,10 @@ export function generateMetadata(payload: SEOPayload = {}): Metadata {
     path = '/',
     image = siteConfig.images.ogImage,
     type = 'website',
+    robots,
   } = payload;
 
-  const url = `${siteConfig.siteUrl}${path}`;
+  const url = toCanonicalUrl(path);
   const fullImageUrl = image.startsWith('http') ? image : `${siteConfig.siteUrl}${image}`;
 
   return {
@@ -55,7 +71,7 @@ export function generateMetadata(payload: SEOPayload = {}): Metadata {
       images: [fullImageUrl],
       // creator: siteConfig.share.twitterHandle, // Uncomment when handle added
     },
-    robots: {
+    robots: robots ?? {
       index: true,
       follow: true,
       googleBot: {
@@ -79,11 +95,14 @@ export function generateBookSchema() {
     '@context': 'https://schema.org',
     '@type': 'Book',
     name: siteConfig.bookTitle,
+    description: copy.metadata.metaDescription.v1,
     author: {
       '@type': 'Person',
       name: siteConfig.authorName,
+      url: 'https://www.zyjeski.com/',
     },
-    url: siteConfig.siteUrl,
+    url: toCanonicalUrl('/'),
+    image: `${siteConfig.siteUrl}${siteConfig.images.cover}`,
     sameAs: [siteConfig.amazonUrl],
     // Note: ISBN intentionally omitted per requirements
     // ISBN: '978-XXXXXXXXXX',
@@ -126,6 +145,21 @@ export function generateBookSchema() {
     //   ratingValue: '0',
     //   reviewCount: '0',
     // },
+  };
+}
+
+export function generateFAQPageSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: copy.faq.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
   };
 }
 
