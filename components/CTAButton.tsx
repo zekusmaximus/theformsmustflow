@@ -132,7 +132,7 @@ interface AmazonCTAProps {
 
 export function AmazonCTA({
   size = 'lg',
-  children = 'Buy on Amazon',
+  children = 'Get the Book — $4.98',
   trackLocation = 'unknown',
   className = '',
   onClick,
@@ -145,10 +145,10 @@ export function AmazonCTA({
       trackLocation={trackLocation}
       className={`flex-col gap-0.5 ${className}`}
       onClick={onClick}
-      ariaLabel="Buy The Forms Must Flow on Amazon (opens in new tab, Kindle Unlimited + paperback, takes 10 seconds)"
+      ariaLabel="Get The Forms Must Flow — $4.98 on Amazon (opens in new tab, Kindle + Paperback, Free on Kindle Unlimited)"
     >
       <span>{children}</span>
-      <span className="text-xs font-normal opacity-90">Opens Kindle + paperback • Takes 10 seconds</span>
+      <span className="text-xs font-normal opacity-90">Kindle + Paperback available • Free on Kindle Unlimited</span>
     </CTAButton>
   );
 }

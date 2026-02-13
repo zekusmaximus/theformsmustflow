@@ -47,7 +47,7 @@ export function FinalCTA({ className = '' }: FinalCTAProps) {
             trackLocation="final-cta"
             className="bg-accent-500 hover:bg-accent-400"
           >
-            Buy on Amazon
+            Get the Book — $4.98
           </AmazonCTA>
           
           <SampleCTA 

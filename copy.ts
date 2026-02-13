@@ -14,7 +14,7 @@ export const copy = {
   
   // 2. Hero Subhead Options (5 variants)
   heroSubhead: {
-    v1: "A satirical sci-fi novel where alien conquest meets the immovable object of human bureaucracy. Sharp, cinematic, and uncomfortably relatable.",
+    v1: "They came to conquer Earth. First, they need form TPS-2847 in triplicate. A satirical sci-fi novel where the invasion bogs down in permit requests, parking tickets, and interoffice memos.",
     v2: "When an advanced alien armada arrives to claim Earth, they discover one problem: no invasion protocol has ever faced red tape this relentless.",
     v3: "Jeffrey A. Zyjeski delivers a high-concept comedy about the one force in the universe more unyielding than interstellar war: middle management.",
     v4: "The invasion was flawless. The paperwork was not. Now Earth's fate hinges on filing deadlines, committee approvals, and one very determined clerk.",
@@ -23,11 +23,11 @@ export const copy = {
   
   // 3. Primary CTA Button Labels (5 variants)
   primaryCTA: {
-    v1: "Buy on Amazon",
-    v2: "Get Your Copy",
-    v3: "Start Reading",
-    v4: "Buy the Book",
-    v5: "Available Now",
+    v1: "Get the Book — $4.98",
+    v2: "Get Your Copy — $4.98",
+    v3: "Start Reading — $4.98",
+    v4: "Buy the Book — $4.98",
+    v5: "Available Now — $4.98",
   },
   
   // 4. Secondary CTA Labels (5 variants)
@@ -237,8 +237,8 @@ He lives with an appreciation for the people who keep complex systems running—
   
   // Additional UI Copy
   ui: {
-    stickyHeaderCTA: "Buy on Amazon",
-    mobileStickyCTA: "Get the Book",
+    stickyHeaderCTA: "Get the Book — $4.98",
+    mobileStickyCTA: "Get the Book — $4.98",
     scrollPulseText: "Still thinking?",
     exitIntentHeadline: "Wait — Want the Link Sent to You?",
     exitIntentSubheadline: "Enter your email and we'll send the Amazon link for easy access later.",

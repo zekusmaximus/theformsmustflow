@@ -91,34 +91,56 @@ export function Hero({ className = '' }: HeroProps) {
 
             <div className="relative max-w-2xl mx-auto lg:mx-0">
               {/* Genre tag - holographic label */}
-              <p className="inline-block px-4 py-1.5 bg-neon-500/20 text-neon-400 text-sm font-medium rounded-full mb-6 rotate-[-1deg] border border-neon-500/30 shadow-neon-sm">
+              <p className="inline-block px-4 py-1.5 bg-neon-500/20 text-neon-400 text-sm font-medium rounded-full mb-3 rotate-[-1deg] border border-neon-500/30 shadow-neon-sm">
                 Satirical Science Fiction
               </p>
 
+              {/* Change #2: New Release badge */}
+              <div className="mb-6">
+                <span className="inline-block px-4 py-1.5 bg-[rgba(255,215,0,0.15)] text-[#ffd700] text-sm font-medium rounded-full border border-[rgba(255,215,0,0.3)]">
+                  ✨ New Release — February 2026
+                </span>
+              </div>
+
               {/* Headline - dark theme with text shadow */}
-              <h1 
+              <h1
                 id="hero-heading"
-                className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-dark-50 leading-tight mb-6 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
+                className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-dark-50 leading-tight mb-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
               >
                 {headline}
               </h1>
 
+              {/* Change #5: Recommended For */}
+              <p className="text-sm md:text-base text-dark-400 italic mb-4 max-w-2xl mx-auto lg:mx-0">
+                ⭐ Recommended for fans of <strong className="font-semibold not-italic text-dark-300">Douglas Adams</strong>, <strong className="font-semibold not-italic text-dark-300">Terry Pratchett</strong>, and anyone who&apos;s ever filled out form 27B/6
+              </p>
+
               {/* Subhead - dark theme */}
-              <p className="text-lg md:text-xl text-dark-300 leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">
+              <p className="text-lg md:text-xl text-dark-300 leading-relaxed mb-6 max-w-2xl mx-auto lg:mx-0">
                 {subhead}
+              </p>
+
+              {/* Change #3: Try before you buy helper text */}
+              <p className="text-sm text-dark-400 mb-4 text-center lg:text-left">
+                🤔 Not sure yet?{' '}
+                <a href="/sample" className="text-neon-400 underline hover:text-neon-300 transition-colors">
+                  Read a free sample first
+                </a>{' '}
+                <span className="hidden sm:inline">(850 words, 4 min read)</span>
+                <span className="sm:hidden">(4 min read)</span>
               </p>
 
               {/* CTA buttons */}
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-8">
-                <AmazonCTA 
-                  size="lg" 
+                <AmazonCTA
+                  size="lg"
                   trackLocation="hero"
                 >
                   {primaryCTA}
                 </AmazonCTA>
-                
-                <SampleCTA 
-                  size="lg" 
+
+                <SampleCTA
+                  size="lg"
                   trackLocation="hero"
                 >
                   {secondaryCTA}
