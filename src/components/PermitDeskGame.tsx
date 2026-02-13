@@ -334,19 +334,22 @@ export default function PermitDeskGame() {
               <div>{highScore}</div>
             </div>
           </div>
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between text-[10px] text-primary-500 mb-0.5">
               <span>Invasion</span>
               <span className="tabular-nums">{invasion}%</span>
             </div>
-            <div className="relative h-2 rounded-full bg-primary-100 overflow-hidden">
+            <div className="relative h-4 rounded-full bg-primary-200 border border-primary-300 overflow-hidden">
               <div
-                className="h-full bg-accent-600 transition-all"
-                style={{ width: `${invasion}%` }}
+                className="h-full rounded-full transition-all duration-300"
+                style={{
+                  width: `${invasion}%`,
+                  background: `linear-gradient(90deg, #db2777, #be185d)`,
+                }}
                 aria-label="Invasion progress bar"
               />
               <div
-                className="absolute top-0 h-full w-0.5 bg-primary-400"
+                className="absolute top-0 h-full w-0.5 bg-primary-900 opacity-60"
                 style={{ left: `${INVASION_START}%` }}
                 aria-label="Starting invasion level"
               />
