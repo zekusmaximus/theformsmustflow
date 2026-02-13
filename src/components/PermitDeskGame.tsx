@@ -18,6 +18,7 @@ type Decision = "approve" | "return";
 
 const GAME_SECONDS = 45;
 const SWIPE_THRESHOLD_PX = 90;
+const INVASION_START = 50;
 
 function clamp(n: number, min: number, max: number) {
   return Math.max(min, Math.min(max, n));
@@ -92,7 +93,7 @@ export default function PermitDeskGame() {
   const [secondsLeft, setSecondsLeft] = useState(GAME_SECONDS);
   const [score, setScore] = useState(0);
   const [combo, setCombo] = useState(0);
-  const [invasion, setInvasion] = useState(0); // 0..100
+  const [invasion, setInvasion] = useState(INVASION_START); // 0..100
   const [current, setCurrent] = useState<GeneratedForm>(() => generateForm());
   const [banner, setBanner] = useState<string>("");
 
@@ -177,7 +178,7 @@ export default function PermitDeskGame() {
     setSecondsLeft(GAME_SECONDS);
     setScore(0);
     setCombo(0);
-    setInvasion(0);
+    setInvasion(INVASION_START);
     setBanner("");
     setCurrent(generateForm());
     dragXRef.current = 0;
@@ -338,11 +339,16 @@ export default function PermitDeskGame() {
               <span>Invasion</span>
               <span className="tabular-nums">{invasion}%</span>
             </div>
-            <div className="h-2 rounded-full bg-primary-100 overflow-hidden">
+            <div className="relative h-2 rounded-full bg-primary-100 overflow-hidden">
               <div
                 className="h-full bg-accent-600 transition-all"
                 style={{ width: `${invasion}%` }}
                 aria-label="Invasion progress bar"
+              />
+              <div
+                className="absolute top-0 h-full w-0.5 bg-primary-400"
+                style={{ left: `${INVASION_START}%` }}
+                aria-label="Starting invasion level"
               />
             </div>
           </div>
@@ -479,6 +485,15 @@ export default function PermitDeskGame() {
               Score: <span className="font-bold tabular-nums">{score}</span> - High: {" "}
               <span className="font-bold tabular-nums">{Math.max(highScore, score)}</span>
             </p>
+            {invasion >= INVASION_START ? (
+              <p className="mt-1.5 text-xs text-accent-700 font-semibold">
+                Invasion successful! The hive mind breaks through the red tape.
+              </p>
+            ) : (
+              <p className="mt-1.5 text-xs text-green-700 font-semibold">
+                Invasion stopped by proper form filing! Bureaucracy wins again.
+              </p>
+            )}
             <div className="mt-2 flex flex-col sm:flex-row gap-2">
               <button
                 onClick={resetGame}
@@ -490,9 +505,11 @@ export default function PermitDeskGame() {
                 href="https://a.co/d/h9ehTip"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center px-3 py-2 rounded-lg border-2 border-primary-300 text-primary-900 text-xs font-semibold hover:bg-white transition-colors"
+                className="w-full inline-flex items-center justify-center px-3 py-2 rounded-lg border-2 border-primary-300 text-primary-900 text-xs font-semibold hover:bg-white transition-colors text-center"
               >
-                Buy Book
+                {invasion >= INVASION_START
+                  ? "Read the book to get the whole story"
+                  : "Read how the bureaucracy fares in the book"}
               </a>
             </div>
           </div>
