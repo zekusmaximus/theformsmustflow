@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { CoverMock } from './CoverMock';
-import { AmazonCTA, SampleCTA } from './CTAButton';
+import { AmazonCTA } from './CTAButton';
 import { copy } from '@/copy';
 import { getVariantCopy } from '@/hooks';
 import { useVariant } from '@/hooks';
@@ -33,7 +33,7 @@ export function Hero({ className = '' }: HeroProps) {
   const headline = getVariantCopy(copy.heroH1, variant);
   const subhead = getVariantCopy(copy.heroSubhead, variant);
   const primaryCTA = getVariantCopy(copy.primaryCTA, variant);
-  const secondaryCTA = getVariantCopy(copy.secondaryCTA, variant);
+
 
   return (
     <section 
@@ -130,21 +130,15 @@ export function Hero({ className = '' }: HeroProps) {
                 <span className="sm:hidden">(4 min read)</span>
               </p>
 
-              {/* CTA buttons */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-8">
+              {/* CTA button */}
+              <div className="flex items-center justify-center lg:justify-start mb-8">
                 <AmazonCTA
                   size="lg"
                   trackLocation="hero"
+                  className="w-full sm:w-auto sm:min-w-[320px] text-lg"
                 >
                   {primaryCTA}
                 </AmazonCTA>
-
-                <SampleCTA
-                  size="lg"
-                  trackLocation="hero"
-                >
-                  {secondaryCTA}
-                </SampleCTA>
               </div>
 
               {/* Trust microcopy - dark theme */}
